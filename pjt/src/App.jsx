@@ -40,10 +40,13 @@ function App() {
   }
   return (
     <AppContainer>
+      <AppTitle>
+        심리상담사 GPT, AI 회고록
+      </AppTitle>
       <Diaryinput isLoading={isLoading} onSubmit={handleSubmit} />
       <button onClick={handleClickAPICall}>GPT_API_CALL</button>
       <div>title: {data.title}</div>
-      <div>thumbnail: {data.thumbnail}</div>
+      <div>thumbnail: <img width="600px" src={data.thumbnail}></img></div>
       <div>summary: {data.summary}</div>
       <div>emotional_content: {data.emotional_content}</div>
       <div>emotional_result: {data.emotional_result}</div>
@@ -62,4 +65,12 @@ const AppContainer = styled.div`
   max-width: 720px;
   width: 100%;
   margin: 0 auto;
+`;
+
+const AppTitle = styled.div`
+  width: 100%;
+  font-weight: 400;
+  font-size: 35px;
+  text-align: center;
+  font-family: "Noto Serif KR";
 `;
