@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { CallGPT } from './apis/gpt';
+import Diaryinput from './components/Diaryinput'
 
 const dummy = {
   "title": "강의 따라하기의 어려움",
@@ -19,11 +20,11 @@ function App() {
   const [data, setData] = useState(dummy);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleClickAPICall = async () => {
+  const handleClickAPICall = async (userInput) => {
     try {
       setIsLoading(true)
       const message = await CallGPT({
-        prompt: '강의 따라함. 어려움. 코드 따라 치는 것 밖에 못 하는 것 같음. 힘들다.'
+        prompt: `${userInput}`
       });
       setData(JSON.parse(message))
     } catch (err) {
@@ -32,8 +33,13 @@ function App() {
       setIsLoading(false)
     }
   };
+
+  const handleSubmit = (userInput) => {
+    handleClickAPICall(userInput);
+  }
   return (
     <>
+      <Diaryinput isLoading={isLoading} onSubmit={handleSubmit} />
       <button onClick={handleClickAPICall}>GPT_API_CALL</button>
       <div>
         data: {JSON.stringify(data)}
