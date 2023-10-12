@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CallGPT } from './apis/gpt';
 import Diaryinput from './components/Diaryinput'
+import styled from 'styled-components'
 
 const dummy = {
   "title": "강의 따라하기의 어려움",
@@ -38,24 +39,27 @@ function App() {
     handleClickAPICall(userInput);
   }
   return (
-    <>
+    <AppContainer>
       <Diaryinput isLoading={isLoading} onSubmit={handleSubmit} />
       <button onClick={handleClickAPICall}>GPT_API_CALL</button>
-      <div>
-        data: {JSON.stringify(data)}
-        <div>title: {data.title}</div>
-        <div>thumbnail: {data.thumbnail}</div>
-        <div>summary: {data.summary}</div>
-        <div>emotional_content: {data.emotional_content}</div>
-        <div>emotional_result: {data.emotional_result}</div>
-        <div>analysis: {data.analysis}</div>
-        <div>action_list: {data.action_list}</div>
-      </div>
-      <div>
-        isLoading: {isLoading ? "loading.." : "finish!"}
-      </div>
-    </>
+      <div>title: {data.title}</div>
+      <div>thumbnail: {data.thumbnail}</div>
+      <div>summary: {data.summary}</div>
+      <div>emotional_content: {data.emotional_content}</div>
+      <div>emotional_result: {data.emotional_result}</div>
+      <div>analysis: {data.analysis}</div>
+      <div>action_list: {data.action_list}</div>
+    </AppContainer>
   )
 }
 
-export default App
+export default App;
+
+const AppContainer = styled.div`
+  padding:20px;
+  display:flex;
+  flex-direction: column;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+`;
