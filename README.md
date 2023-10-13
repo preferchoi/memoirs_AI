@@ -12,18 +12,27 @@
 
 - 마크다운 형식으로 이미지 출력하게 만들기
 ```
-Please send me images according to the following rules:
+    Please send me images according to the following rules:
 
-1. Use markdown format;
-2. Use the Unsplash API;
-3. Reply using the format " ![image]https://source.unsplash.com/featured/?<my_input> ";
-4. Do not use code blocks, do not describe other content, do not explain;
-5. Generate the corresponding format based on the content I input.
+    1. Use markdown format;
+    2. Use the Unsplash API;
+    3. Reply using the format " ![image]https://source.unsplash.com/featured/?<my_input> ";
+    4. Do not use code blocks, do not describe other content, do not explain;
+    5. Generate the corresponding format based on the content I input.
 ```
 
 - json 형식으로 데이터 출력하게 만들기
 ```
-a
+    Translate into Korean and Use the output in the following JSON format:
+    { 
+        title: here is [title],
+        thumbnail: here is [image],
+        summary: here is [summarize]
+        emotional_content: here is [emotional diary],
+        emotional_result: here is [evaluates],
+        analysis: here is [Psychological analysis],
+        action_list: here is [3 action tips],
+    }
 ```
 
 
@@ -54,4 +63,43 @@ npm run dev
         - 초기 설정을 건너뛸 수 있게 해줌. 해당 프로젝트는 소규모 프로젝트이기 때문에, 환경 설정에 소모되는 비용을 줄이기 위해 vite를 선택
 
 
+### chatGPT API 사용
+```
+# fetch
+fetch("https://api.openai.com/v1/chat/completions",{
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${GPT_API_KEY}`
+    },
+    body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages,
+        temperature: 0.7,
+        max_tokens: 1_000,
+    })
+}
+
+# axios
+axios.post("https://api.openai.com/v1/chat/completions",{
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${GPT_API_KEY}`
+    },
+    body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages,
+        temperature: 0.7,
+        max_tokens: 1_000,
+    })
+}
+```
+- model <br>
+사용할 모델의 ID. [작동하는 모델 목록](https://platform.openai.com/docs/models)
+- messages <br>
+지금까지의 대화를 구성하는 메시지 목록
+- temperature <br>
+0에서 2 사이. 값이 높을수록 출력이 더 무작위로 만들어지고, 값이 낮을수록 더 집중적이고 결정적이게 됩니다.
+- max_tokens <br>
+채팅 완료 시 생성할 최대 토큰 수. 입력 토큰과 생성된 토큰의 총 길이는 모델의 컨텍스트 길이에 따라 제한.
 
